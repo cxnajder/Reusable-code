@@ -26,7 +26,7 @@ public:
     Vector2D operator++(int);   // v++  <-- "int" w deklaraci jest czysto kosmetyczny - pozwala odróznić v++ od ++v
 
     // conversion to string
-    operator std::string () const;
+    explicit operator std::string () const;     // explicit pozwala tylko na JAWNĄ konwersję
 
 };
 
@@ -119,7 +119,8 @@ int main(int argc, char const *argv[])
     std::cout<<'\n';
 
     std::string vec_str = "test";
-    vec_str = v1;
+    //vec_str = v1;                                 // przykład NIEJAWNEJ KONWERSJI
+    vec_str = static_cast<std::string>(v1);         // przykład    JAWNEJ KONWERSJI
 
     std::cout << "v1 as string --> "<< vec_str <<'\n';       // resoult: (3,3) ((v postincremented))
     std::cout<<'\n';
