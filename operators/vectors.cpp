@@ -122,7 +122,7 @@ int main(int argc, char const *argv[])
     //vec_str = v1;                                 // przykład NIEJAWNEJ KONWERSJI
     vec_str = static_cast<std::string>(v1);         // przykład    JAWNEJ KONWERSJI
 
-    std::cout << "v1 as string --> "<< vec_str <<'\n';       // resoult: (3,3) ((v postincremented))
+    std::cout << "v1 as string --> "<< vec_str <<'\n';
     std::cout<<'\n';
 
     return 0;
