@@ -1,4 +1,6 @@
 #include <iostream>
+#include <string>
+#include <sstream>
 
 class Vector2D {
     double x;
@@ -22,6 +24,9 @@ public:
 
     Vector2D & operator++();      // ++v
     Vector2D operator++(int);   // v++  <-- "int" w deklaraci jest czysto kosmetyczny - pozwala odróznić v++ od ++v
+
+    // conversion to string
+    operator std::string () const;
 
 };
 
@@ -71,6 +76,13 @@ Vector2D Vector2D::operator++(int){ // ŻELAZNA ZASADA: NIGDY NIE ZWRACAJ REEREN
 }
 
 
+Vector2D::operator std::string () const     // stringstream usage example
+{
+    std::stringstream ss;
+    ss << *this;
+    return ss.str();
+}
+
 int main(int argc, char const *argv[])
 {
     Vector2D v1 = {1, 0};
@@ -104,6 +116,12 @@ int main(int argc, char const *argv[])
     std::cout << "++v1 --> "<< ++v1 <<'\n';  // resoult: (2,2)
     std::cout << "v1++ --> "<< v1++ <<'\n';  // resoult: (2,2) ((v++ returns a copy of v preincremented))
     std::cout << "v1 = "<< v1 <<'\n';       // resoult: (3,3) ((v postincremented))
+    std::cout<<'\n';
+
+    std::string vec_str = "test";
+    vec_str = v1;
+
+    std::cout << "v1 as string --> "<< vec_str <<'\n';       // resoult: (3,3) ((v postincremented))
     std::cout<<'\n';
 
     return 0;
