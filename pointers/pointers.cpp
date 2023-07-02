@@ -47,14 +47,17 @@ int main(int argc, char const *argv[])
     DummyClass * ptr_tab = new DummyClass[5];
 
     delete ptr1;    // has to be openly deleted to free memory
-    //delete ptr2;  // <-- COMMENTING THIS LINE WILL PREVENT ptr2 DESTRUCTOR FROM BEAING CALLED!!!
+    delete ptr2;  // <-- COMMENTING THIS LINE WILL PREVENT ptr2 DESTRUCTOR FROM BEAING CALLED!!!
     delete [] ptr_tab; // easy to forget abut [] - IT'S MUCH EASIER AND SAFER TO JUST USE VECTORS!
 
     //------------------------------------
     // UNIQUE POINTER
 
     std::unique_ptr<DummyClass> uptr1 (new DummyClass("((unique pointer 1))"));
-    // this pointer will be deleted after exiting main automatically
+    std::unique_ptr<DummyClass> uptr2 = std::make_unique<DummyClass>("((unique pointer 2))");
+    auto uptr3 = std::make_unique<DummyClass>("((unique pointer 3))");
+
+    // this pointers will be deleted after exiting main automatically
     // uniq pointer is the only owner of dynamic object    
     // we can not copy this walue to a other pinter
     // unique pointer object can have only one owner
@@ -67,7 +70,10 @@ int main(int argc, char const *argv[])
     //------------------------------------
     // SHARED POINTER
 
-    std::shared_ptr<DummyClass> sptr1 (new DummyClass("{{shared pointer 1}}")); 
+    std::shared_ptr<DummyClass> sptr1 (new DummyClass("{{shared pointer 1}}"));
+    std::shared_ptr<DummyClass> sptr2 = std::make_shared<DummyClass>("{{shared pointer 2}}");
+    auto sptr3 = std::make_shared<DummyClass>("{{shared pointer 3}}");
+    std::shared_ptr<DummyClass> sptr4 = sptr1;
     // shared-pointer allows to share memory/object with other pointers
     // the memory will be released (destructor will be called) when the last pointer "disappears"
     // shared-poiter require extra memory cost to count numbers of pointers pointing object
@@ -76,29 +82,3 @@ int main(int argc, char const *argv[])
     std::cout<<"MAIN ENDS\n";
     return 0;
 }
-
-/* THE MAIN OUTPUT:
-
-MAIN STARTS
-<<basic pointer 1>> has been CREATED
-<<basic pointer 2>> has been CREATED
-[[unnamed pointer1]] has been CREATED
-[[unnamed pointer2]] has been CREATED
-[[unnamed pointer3]] has been CREATED
-[[unnamed pointer4]] has been CREATED
-[[unnamed pointer5]] has been CREATED
-<<basic pointer 1>> has been DELETED
-[[unnamed pointer5]] has been DELETED
-[[unnamed pointer4]] has been DELETED
-[[unnamed pointer3]] has been DELETED
-[[unnamed pointer2]] has been DELETED
-[[unnamed pointer1]] has been DELETED
-((unique pointer 1)) has been CREATED
-{{shared pointer 1}} has been CREATED
-MAIN ENDS
-{{shared pointer 1}} has been DELETED
-((unique pointer 1)) has been DELETED
-
-*/
-// The <<basic pointer 2>> destructor has never been called.
-// (Line: "<<basic pointer 2>> has been DELETED" - has never appeared)
