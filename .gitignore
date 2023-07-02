@@ -6,3 +6,4 @@ cpp/object/operators/vectors
 cpp/object/operators/complex_nums
 cpp/object/inheritance/sensors-abstract_class
 cpp/object/stack
+cpp/object/templates/Stack
