@@ -6,10 +6,13 @@ class Buffer{
     int size;
 public:
     explicit Buffer(int bufferSize);
-    Buffer(const Buffer & origin);  // COPY CONSTRUCTOR
+    Buffer(const Buffer & origin);  //        COPY CONSTRUCTOR
+    Buffer(Buffer && origin); // MOVING COPY CONSTRUCTOR
     ~Buffer();
-    Buffer & operator=(const Buffer & b2);
+
     //Buffer & operator=(Buffer  b2); // in this case we would use Copy Constructor to create a copy of parameter
+    Buffer & operator=(const Buffer & b2);
+    Buffer & operator=(Buffer && b2);
 };
 
 Buffer::Buffer(int bufferSize){
@@ -32,6 +35,13 @@ Buffer::Buffer(const Buffer & origin){ // COPY CONSTRUCTOR
     data = new int[origin.size];
     size = origin.size;
     std::copy(origin.data, origin.data + origin.size, data);
+}
+
+Buffer::Buffer(Buffer && origin){
+    data = origin.data;
+    origin.data = nullptr;
+    size = origin.size;
+
 }
 
 Buffer::~Buffer() {
@@ -87,6 +97,12 @@ Buffer & Buffer::operator=(const Buffer & b2){
     return *this;
 }
 
+Buffer & Buffer::operator=(Buffer && b2){
+    std::swap(data, b2.data);
+    size = b2.size;
+
+    return *this;
+}
 
 void buffer_test(Buffer b){
     return;
@@ -107,6 +123,15 @@ Buffer RVO_test2(){
     return tmp2;
 }
 
+
+void value_test(int & x) {
+    std::cout << "L-value : "<<x<<'\n';
+}
+void value_test(int && x) { // && <- is a reference to R-value
+    std::cout << "R-value : "<<x<<'\n';
+}
+
+
 int main(int argc, char const *argv[])
 {
     Buffer b1(4);
@@ -123,6 +148,21 @@ int main(int argc, char const *argv[])
     Buffer b5 =  RVO_test2(); // in this case RVO will not work
 
 
+    int i = 9;
+
+    value_test(i);      // L-value
+    value_test(i+1);    // R-value
+    // L-value is anything that can be passed by reference
+    // R-value is anything else
+
+    // In C++11 there have been 2 new methods added:
+    // 1) Object(Object && o)             <-- moving copy constructor
+    //      This is a copy constructor which knows that a original object will soon disapear.
+    //      It knows that it can copy/steal values from original without copying it.
+    // 2) Object & operator=(Object && o) <-- moving copy operator
+    //      && <- is a reference to R-value
+
+
     return 0;
 }
 /*
@@ -135,5 +175,6 @@ RULE OF 0:
     Simply use vectors and unique or shared pointers.
 
 RULE OF 5:
-    ... ???
+    If we used "rule of 3" we should as well define moving copy constructor and moving =operator 
+    (with && in declaration)
 */
