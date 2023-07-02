@@ -10,6 +10,7 @@ class Stack {
     // in older version leave declaration in private section without "= delete"
 public:
     explicit Stack(int stackSize);
+    ~Stack();
 
     void push(int val);
     int pop();
@@ -19,6 +20,10 @@ Stack::Stack(int stackSize) {
     data = new int[stackSize];
     size = stackSize;
     last = -1; // -1 means that stack is empty (0 stands for first index)
+}
+
+Stack::~Stack(){
+    delete [] data;
 }
 
 void Stack::push(int val){
