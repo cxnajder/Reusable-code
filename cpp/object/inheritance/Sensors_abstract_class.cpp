@@ -6,6 +6,7 @@ class Sensor {
 public:
     virtual void measure() = 0;
     virtual double get_result() = 0;
+    virtual ~Sensor() {}
 //  virtual function = 0 <- means the function does not have implementation
 //  PL:
 //  virtual function = 0; to funkcja czyto-wirtualna
