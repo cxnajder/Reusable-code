@@ -1,4 +1,5 @@
 .vscode
+
 cpp/recursion/recursions
 cpp/pointers/pointers
 cpp/object/buffer
@@ -6,4 +7,12 @@ cpp/object/operators/vectors
 cpp/object/operators/complex_nums
 cpp/object/inheritance/sensors-abstract_class
 cpp/object/stack
+
+cpp/recursion/Recursions
+cpp/pointers/Pointers
+cpp/object/Buffer
+cpp/object/operators/Vectors
+cpp/object/operators/Complex_nums
+cpp/object/inheritance/Sensors_abstract_class
+cpp/object/Stack
 cpp/object/templates/Stack
