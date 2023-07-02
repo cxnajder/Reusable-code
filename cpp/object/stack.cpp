@@ -1,37 +1,13 @@
 #include <iostream>
 
- void keep_window_open()
-{
-	std::cin.clear();
-	std::cout << "Please enter a character to exit\n";
-	char ch;
-	std::cin >> ch;
-	return;
-}
-
- void keep_window_open(std::string s)
-{
-	if (s == "") return;
-	std::cin.clear();
-	std::cin.ignore(120, '\n');
-	for (;;) {
-		std::string ss;
-        do {
-			std::cout << "Please enter " << s << " to exit\n";
-        } while (std::cin >> ss && ss != s);
-        
-		return;
-	}
-}
-
-
 class Stack {
     int * data;
     int size;
     int last;   // marks last saved space
 
     Stack(const Stack &) = delete; // makes sure copy constructor and =op are forbiden
-    Stack & operator=(const Stack &) = delete;
+    Stack & operator=(const Stack &) = delete;  // avilable since C++11
+    // in older version leave declaration in private section without "= delete"
 public:
     explicit Stack(int stackSize);
 
@@ -59,6 +35,35 @@ int Stack::pop(){
     return data[last--];
 }
 
+void reference_constr_test(Stack s){ // this function should throw error
+    return;
+}
+
+ void keep_window_open()
+{
+	std::cin.clear();
+	std::cout << "Please enter a character to exit\n";
+	char ch;
+	std::cin >> ch;
+	return;
+}
+
+ void keep_window_open(std::string s)
+{
+	if (s == "") return;
+	std::cin.clear();
+	std::cin.ignore(120, '\n');
+	for (;;) {
+		std::string ss;
+        do {
+			std::cout << "Please enter " << s << " to exit\n";
+        } while (std::cin >> ss && ss != s);
+        
+		return;
+	}
+}
+
+
 int main(int argc, char const *argv[])
 {   
     try{
@@ -70,9 +75,15 @@ int main(int argc, char const *argv[])
         //stk.push(999);  // push error
         
         for (int i = 0; i < 5; ++i)
-            stk.pop();
+            std::cout<<stk.pop()<<'\n';
 
         //stk.pop();      // pop error
+
+        //Stack stk2 = stk;             // wont even compile
+        // "error: use of deleted function ‘Stack::Stack(const Stack&)’"
+
+        //reference_constr_test(stk);   // wont compile aswel
+        // "error: use of deleted function ‘Stack::Stack(const Stack&)’"
 
         return 0;
     }
