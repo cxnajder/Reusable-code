@@ -50,38 +50,61 @@ void title(std::string Title = "", std::string line_sep = "---------------------
     std::cout<<Title<<'\n';
 }
 
+void printArrayElements(int* arr, int size) {
+    for (int i = 0; i < size; ++i) {
+        std::cout << arr[i] << ' ';
+    }
+    std::cout <<'\n';
+}
+
 int main(int argc, char const *argv[])
 {
     //----------------------------------
     title("Arrey");
 
-    std::array<int, 5> a = {1, 2, 3}; // 4th and 5th emenet skipped on purpose
+    std::array<int, 5> arr = {1, 2, 3}; // 4th and 5th emenet skipped on purpose
 
-    a.size();
-    a[0] = -99;
-    a.at(1) = 100;
-
-    std::cout << "arrey size    : " << a.size() <<'\n';
-    std::cout << "arrey max_size: " << a.max_size() <<'\n';
+    std::cout << "arrey size    : " << arr.size() <<'\n';
+    std::cout << "arrey max_size: " << arr.max_size() <<'\n';
 
     std::cout << "elements: ";
-    for (auto i: a){
-        std::cout << i <<", ";
-    }
-    std::cout << '\n';
+    printArrayElements(arr.data(), arr.size());
 
     //----------------------------------
     title("Vector");
 
-    std::vector<double> v;
+    std::vector<int> vec;
 
-    std::cout << "vector size    : " << v.size() <<'\n';
-    v.push_back(3.14);
-    std::cout << "vector size    : " << v.size() <<'\n';
-    std::cout << "vector max_size: " << v.max_size() <<'\n';
-    std::cout << "vector v[0]    : " << v[0] <<'\n';
-    std::cout << "vector v.at(0) : " << v.at(0) <<'\n';
-    v.pop_back();
+
+    std::cout << "vector max_size: " << vec.max_size() <<'\n';
+    
+    std::cout << "size:" << '\t' << "capacity:" << '\n';
+    std::cout << "----"  << '\t' << "---------" << '\n'; 
+
+    std::cout << vec.size() << '\t' << vec.capacity() << '\n';
+
+    for ( int i = 1; i <= 17; ++i )
+    {
+        static int last_cap = vec.capacity();
+
+        vec.push_back(i);
+
+        if ( vec.capacity() != last_cap )
+        {
+            last_cap = vec.capacity();
+            std::cout << "--" << '\t' << "--" << '\n'; 
+        }
+        std::cout << vec.size() << '\t' << vec.capacity() << '\n';
+
+    }
+
+    std::cout << "elements: ";
+    printArrayElements( vec.data(), vec.size());
+
+    // vector capasity will rase every time its topped
+    // starting at 0 and growing accordingly to: 1, 2, 4, 8, 16, 32 .. (multiply by two)
+
+
 
     /*
         VECTOR VS ARREY 
@@ -102,32 +125,35 @@ int main(int argc, char const *argv[])
         + BUT in deque element are not stored in sequence in memory!
     */
 
-    std::deque<int> d;  // d = {}
+    std::deque<int> deq;  // d = {}
 
-    d.push_back(1);     // d = {1}
-    d.push_back(2);     // d = {1, 2}
+    deq.push_back(1);     // d = {1}
+    deq.push_back(2);     // d = {1, 2}
 
-    d.push_front(3);    // d = {3, 1, 2}
-    d.push_front(4);    // d = {4, 3, 1, 2}
+    deq.push_front(3);    // d = {3, 1, 2}
+    deq.push_front(4);    // d = {4, 3, 1, 2}
 
     std::cout << "elements: ";
-    for (auto i : d) {
-        std::cout << i << ", ";
-    }
+    // becouse deque elements are not is sequence i can not use the arrey iteration function
+    for (auto i : deq)          
+        std::cout << i << ' ';
+    
     std::cout << "\n\n";
 
-    std::cout << "deque     size() : " << d.size() <<'\n';
-    std::cout << "deque max_size() : " << d.max_size() <<'\n';
+    std::cout << "deque     size() : " << deq.size() <<'\n';
+    std::cout << "deque max_size() : " << deq.max_size() <<'\n';
 
     std::cout<<'\n';
 
-    d.pop_back();       // d = {4, 3, 1}
-    d.pop_front();      // d = {3, 1}
+    deq.pop_back();       // d = {4, 3, 1}
+    deq.pop_front();      // d = {3, 1}
+
+    std::cout << "deleted first and last element\n\n";
 
     std::cout << "elements: ";
-    for (auto i : d) {
-        std::cout << i << ", ";
-    }
+    for (auto i : deq)
+        std::cout << i << ' ';
+
     std::cout << '\n';
 
     //----------------------------------
@@ -136,31 +162,33 @@ int main(int argc, char const *argv[])
     // Takes up more memory BUT becouse of this, it's much easier to delete inside elements or insert element inside list!
     // (after deleteing inside element, neighbour elements will start pointing at each other)
 
-    std::list<int> l = {1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1};
+    std::list<int> lst = {1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1};
 
-    std::cout << "list size    : " << l.size() <<'\n';
-    std::cout << "list max_size: " << l.max_size() <<'\n';
+    std::cout << "list size    : " << lst.size() <<'\n';
+    std::cout << "list max_size: " << lst.max_size() <<'\n';
     std::cout << '\n';
 
-    std::cout << "elements: ";
-    for (auto i: l){
-        std::cout << i <<", ";
-    }
-    std::cout << '\n';
-    
-    for (std::list<int>::iterator it = l.begin(); it != l.end();)
+
+    std::cout << "elements: ";   
+
+    for (std::list<int>::iterator it = lst.begin(); it != lst.end();)
     {   //                       "it" is a address of an element
+        std::cout << (*it) <<' '; // printing elements
+
         if (*it % 2 == 0)       // if de-reference of it (value of it element) is divisible by 2 it will be erased
-            it = l.erase(it);   // erase(it) returns new adres to it (since the old address has been removed from list)
+            it = lst.erase(it);   // erase(it) returns new adres to it (since the old address has been removed from list)
         else
             ++it;
     }
+    std::cout << '\n';
+
+
     std::cout << "deleted  every even number!\n";
     
     
     std::cout << "elements: ";
-    for (auto i: l){
-        std::cout << i <<", ";
+    for (auto i: lst){
+        std::cout << i <<' ';
     }
     std::cout << '\n';
 
@@ -168,14 +196,18 @@ int main(int argc, char const *argv[])
     //----------------------------------
     title("Set");
 
-    std::set<char> s;
-    s.insert('G');
-    s.insert('F');
-    s.insert('G'); // there will be no duplicates
+    std::set<int> st;
+    st.insert(1);
+    st.insert(2);
+    st.insert(2); // there will be no duplicates
+    st.insert(1); // same here
+    st.insert(3);
+
+    std::cout << "inserted: 1, 2, 2, 1, 3\n";
 
     std::cout << "elements: ";
-    for (auto& str : s) {
-        std::cout << str << ", ";
+    for (auto i : st) {
+        std::cout << i << ' ';
     } 
     std::cout << '\n';
 
