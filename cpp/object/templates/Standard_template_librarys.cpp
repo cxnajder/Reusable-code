@@ -51,10 +51,51 @@ void title(std::string Title = "", std::string line_sep = "---------------------
 }
 
 void printArrayElements(int* arr, int size) {
-    for (int i = 0; i < size; ++i) {
+    std::cout << "elements: ";
+    for (int i = 0; i < size; ++i)
         std::cout << arr[i] << ' ';
-    }
+    
     std::cout <<'\n';
+}
+void printVecByIter(std::vector<int> & vec)
+{
+    std::cout << "elements: ";
+    for ( auto it = vec.begin(); it != vec.end(); ++it )
+        std::cout<< *it <<' ';
+    
+    std::cout <<'\n';
+}
+
+
+void vectorCapTest(std::vector<int> & vec){
+    std::cout << "vector max_size: " << vec.max_size() <<'\n';
+    
+    std::cout << "size:" << '\t' << "capacity:" << '\n';
+    std::cout << "----"  << '\t' << "---------" << '\n'; 
+
+    std::cout << vec.size() << '\t' << vec.capacity() << '\n';
+
+    static int last_cap;
+    last_cap = vec.capacity();
+
+    for ( int i = 1; i <= 17; ++i )
+    {
+        vec.push_back(i);
+
+        if ( vec.capacity() != last_cap )
+        {
+            last_cap = vec.capacity();
+            std::cout << "--" << '\t' << "--" << '\n'; 
+        }
+        std::cout << vec.size() << '\t' << vec.capacity() << '\n';
+
+    }
+    // vector capasity will rase every time its topped
+    // starting at 0 and growing accordingly to: 1, 2, 4, 8, 16, 32 .. (multiply by two)
+
+ 
+    printArrayElements( vec.data(), vec.size());
+
 }
 
 int main(int argc, char const *argv[])
@@ -67,44 +108,52 @@ int main(int argc, char const *argv[])
     std::cout << "arrey size    : " << arr.size() <<'\n';
     std::cout << "arrey max_size: " << arr.max_size() <<'\n';
 
-    std::cout << "elements: ";
+ 
     printArrayElements(arr.data(), arr.size());
 
     //----------------------------------
     title("Vector");
 
-    std::vector<int> vec;
+    std::vector<int> vec1;
+    vectorCapTest(vec1);
 
 
-    std::cout << "vector max_size: " << vec.max_size() <<'\n';
+    std::cout << '\n';
+    std::cout << "other vector example starting with 10 elements:\n";
+    // example with other vector starting with 10 elements
+    std::vector<int> vec2(10);
+    vectorCapTest(vec2);
+
+    std::cout << '\n';
+    std::cout << "other vector example starting with 10 elements RESERVED:\n";
+    // example with other vector starting with 10 elements
+    std::vector<int> vec3;
+    vec3.reserve(10);
+    vectorCapTest(vec3);
+
+    std::cout << '\n';
+    std::cout << "print vector elements by iter test:\n";
+    printVecByIter(vec3);
+
+    std::cout << '\n';
+    std::cout << "clearing last vec and printing its size and cap\n";
     
+    vec3.clear(); // clear shoud delete the size but not the cap
+
     std::cout << "size:" << '\t' << "capacity:" << '\n';
     std::cout << "----"  << '\t' << "---------" << '\n'; 
 
-    std::cout << vec.size() << '\t' << vec.capacity() << '\n';
+    std::cout << vec3.size() << '\t' << vec3.capacity() << '\n';
 
-    for ( int i = 1; i <= 17; ++i )
-    {
-        static int last_cap = vec.capacity();
+    std::cout << '\n';
+    std::cout << "last vec shrink_to_fit:\n";
+    
+    vec3.shrink_to_fit(); // should optimize vector cap
 
-        vec.push_back(i);
+    std::cout << "size:" << '\t' << "capacity:" << '\n';
+    std::cout << "----"  << '\t' << "---------" << '\n'; 
 
-        if ( vec.capacity() != last_cap )
-        {
-            last_cap = vec.capacity();
-            std::cout << "--" << '\t' << "--" << '\n'; 
-        }
-        std::cout << vec.size() << '\t' << vec.capacity() << '\n';
-
-    }
-
-    std::cout << "elements: ";
-    printArrayElements( vec.data(), vec.size());
-
-    // vector capasity will rase every time its topped
-    // starting at 0 and growing accordingly to: 1, 2, 4, 8, 16, 32 .. (multiply by two)
-
-
+    std::cout << vec3.size() << '\t' << vec3.capacity() << '\n';
 
     /*
         VECTOR VS ARREY 
@@ -113,6 +162,11 @@ int main(int argc, char const *argv[])
         2) but also vector elements in sequece in memory 
         (so vector's first's element address can be used as a pointer to arrey)
     */
+
+   /*
+   vec[i]       <- The difference between this two is that if i is out of size: [i] is unpredictable,
+   vec.at(i)        but if .at(i) is out of vector size it shoud throw an error.
+   */
 
     //----------------------------------
     title("Deque");
@@ -126,12 +180,15 @@ int main(int argc, char const *argv[])
     */
 
     std::deque<int> deq;  // d = {}
-
-    deq.push_back(1);     // d = {1}
-    deq.push_back(2);     // d = {1, 2}
-
-    deq.push_front(3);    // d = {3, 1, 2}
-    deq.push_front(4);    // d = {4, 3, 1, 2}
+    
+    for ( int i = 1; i <= 16; ++i )
+    {
+        if ( i % 2 == 0 ) {
+          deq.push_front(i);
+          continue;
+        }
+        deq.push_front(i);
+    }
 
     std::cout << "elements: ";
     // becouse deque elements are not is sequence i can not use the arrey iteration function
@@ -145,8 +202,8 @@ int main(int argc, char const *argv[])
 
     std::cout<<'\n';
 
-    deq.pop_back();       // d = {4, 3, 1}
-    deq.pop_front();      // d = {3, 1}
+    deq.pop_back();
+    deq.pop_front();
 
     std::cout << "deleted first and last element\n\n";
 
@@ -164,11 +221,8 @@ int main(int argc, char const *argv[])
 
     std::list<int> lst = {1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1};
 
+    std::cout << "list max size: " << lst.max_size() <<'\n';
     std::cout << "list size    : " << lst.size() <<'\n';
-    std::cout << "list max_size: " << lst.max_size() <<'\n';
-    std::cout << '\n';
-
-
     std::cout << "elements: ";   
 
     for (std::list<int>::iterator it = lst.begin(); it != lst.end();)
@@ -179,13 +233,20 @@ int main(int argc, char const *argv[])
             it = lst.erase(it);   // erase(it) returns new adres to it (since the old address has been removed from list)
         else
             ++it;
+        /*
+            "it" is an interato.
+            Every iterator can do 2 things:
+            -   point to the element of a container   - (*it)
+            -   go to the next element of a container - ++it
+        */
     }
-    std::cout << '\n';
+
+    std::cout << "\n\n";
 
 
-    std::cout << "deleted  every even number!\n";
+    std::cout << "deleted  every even number!\n\n";
     
-    
+    std::cout << "list size    : " << lst.size() <<'\n';
     std::cout << "elements: ";
     for (auto i: lst){
         std::cout << i <<' ';
@@ -208,7 +269,7 @@ int main(int argc, char const *argv[])
     std::cout << "elements: ";
     for (auto i : st) {
         std::cout << i << ' ';
-    } 
+    }
     std::cout << '\n';
 
 
