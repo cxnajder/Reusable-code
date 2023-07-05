@@ -19,5 +19,5 @@ cpp/object/templates/Stack
 cpp/pointers/Function_ptr
 cpp/object/templates/Standard_template_librarys
 
-cpp/object/SOLID/SingleResponsibility/Invoice/main
-cpp/object/SOLID/Open-Close/Invoice/main
+cpp/SOLID/SingleResponsibility/Invoice/main
+cpp/SOLID/Open-Close/Invoice/main
