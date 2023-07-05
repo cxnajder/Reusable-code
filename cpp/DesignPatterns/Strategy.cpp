@@ -1,12 +1,13 @@
-#include <iostream>
+#include <memory>
 
 
 class Coordinate;
+class RouteStrategy;
 
 
 class Map
 {
-    RouteStrategy * routeFinder;
+    std::unique_ptr<RouteStrategy> routeFinder;
 };
 
 
