@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Invoice.h"
+#include "InvoiceSaver.h"
 #include <iostream>
 
 Invoice::Invoice(
@@ -24,6 +25,7 @@ double Invoice::calculate_total() const
     return total;
 }
 
+// friend functions: 
 
 void invoiceLogger(Invoice & inv)
 {
@@ -32,9 +34,9 @@ void invoiceLogger(Invoice & inv)
     std::cout << inv.total << '\n';
 }
 
-void invoiceSaver(Invoice & inv)
+void invoiceSaver(const Invoice & inv, InvoiceSaver * invoice_saver)  
+// for some reason i couldnt paste InvoiceSaver & invoice_saver here
 {
-
-    std::cout << "saveing to pdf file.\n";
+    invoice_saver->save(inv); // Liskov Substitution
 }
 

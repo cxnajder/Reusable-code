@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "InvoiceItem.h"
+#include "InvoiceSaver.h"
 
 class Invoice
 {
@@ -18,7 +19,8 @@ public:
 
     //friend class InvoiceLogger;
     friend void invoiceLogger(Invoice &);
-    friend void invoiceSaver(Invoice &);
+    friend void invoiceSaver(Invoice &, InvoiceSaver &);
+    //friend class InvoiceSaver;
 
     /*
         Single Responsibility rule says a class should focus only on the main purpouse.
