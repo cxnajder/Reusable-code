@@ -22,4 +22,4 @@ cpp/object/templates/Standard_template_librarys
 cpp/SOLID/SingleResponsibility/Invoice/main
 cpp/SOLID/Open-Close/Invoice/main
 
-cpp/DesignPatterns/Factory
+cpp/DesignPatterns/Factory/Shapes/main
