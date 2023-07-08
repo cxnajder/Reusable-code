@@ -98,6 +98,14 @@ void vectorCapTest(std::vector<int> & vec){
 
 }
 
+template <typename T>
+std::ostream & operator << (std::ostream & strm, const std::vector<T> & vec)
+{
+    for (auto vec_element: vec)
+        strm << vec_element << " ";
+    return strm;
+} // "cout << vector;" will now be allowed (as long as "cout << type<T>;" is allowed (int, float, double, bool, char and string)).
+
 int main(int argc, char const *argv[])
 {
     //----------------------------------
@@ -134,6 +142,10 @@ int main(int argc, char const *argv[])
     std::cout << '\n';
     std::cout << "print vector elements by iter test:\n";
     printVecByIter(vec3);
+
+    std::cout << '\n';
+    std::cout << "print vector elements by ostream:\n";
+    std::cout << "elements : "<< vec3 << '\n';
 
     std::cout << '\n';
     std::cout << "clearing last vec and printing its size and cap\n";
