@@ -29,3 +29,5 @@ cpp/const/Const_cast
 
 cpp/testing.cpp
 cpp/testing
+
+cpp/object/Private_destructor
