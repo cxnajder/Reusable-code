@@ -25,3 +25,7 @@ cpp/SOLID/Open-Close/Invoice/main
 cpp/DesignPatterns/Factory/Shapes/main
 
 cpp/const/Consts
+cpp/const/Const_cast
+
+cpp/testing.cpp
+cpp/testing
