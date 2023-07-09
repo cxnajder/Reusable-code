@@ -10,7 +10,7 @@ cpp/object/stack
 
 cpp/recursion/Recursions
 cpp/pointers/Pointers
-cpp/object/Buffer
+cpp/object/operators/Buffer
 cpp/object/operators/Vectors
 cpp/object/operators/Complex_nums
 cpp/object/inheritance/Sensors_abstract_class
