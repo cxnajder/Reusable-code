@@ -32,3 +32,4 @@ cpp/testing
 
 cpp/object/Private_destructor
 cpp/pointers/PolimorphicDestructors
+cpp/object/inheritance/Dogs
