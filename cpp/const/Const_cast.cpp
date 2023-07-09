@@ -24,13 +24,15 @@ public:
   
 int main(void)
 {
-    const int val = 10;     // const value
+    //const int val = 10;     // const value - MODIFYING CONST VAL BY POINTER IS UNDEFINED BEHAVIOR!
+    int val = 10;
     const int *ptr = &val;  // pointer to const val (must have const in front)
     //const int * const ptr = &val; // this works also with const pointer ro const val
     cout << "Pointer to const value before : " << *ptr << '\n';
 
     incrementPointer( const_cast <int *>(ptr) );   // cast away constness
     cout << "Pointer to const value after  : " << *ptr << '\n';
+    cout << "val value : " << *ptr << '\n';
 
     cout << "---------\n";
 
