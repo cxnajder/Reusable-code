@@ -33,3 +33,6 @@ cpp/testing
 cpp/object/Private_destructor
 cpp/pointers/PolimorphicDestructors
 cpp/object/inheritance/Dogs
+
+cpp/object/functor/BasicFunctor
+cpp/object/functor/EnemyComperator
