@@ -22,7 +22,11 @@ cpp/object/templates/Standard_template_librarys
 cpp/SOLID/SingleResponsibility/Invoice/main
 cpp/SOLID/Open-Close/Invoice/main
 
+cpp/object/SOLID/SingleResponsibility/Invoice/main
+cpp/object/SOLID/Open-Close/Invoice/main
+
 cpp/DesignPatterns/Factory/Shapes/main
+
 
 cpp/const/Consts
 cpp/const/Const_cast
@@ -36,6 +40,7 @@ cpp/object/inheritance/Dogs
 
 cpp/object/functor/BasicFunctor
 cpp/object/functor/EnemyComperator
+cpp/object/functor/lambda/UnnamedFunctor-Lambda
 
 cpp/STL/algorithm/Find
 cpp/STL/algorithm/Sort
