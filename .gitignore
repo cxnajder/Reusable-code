@@ -21,12 +21,11 @@ cpp/object/templates/Standard_template_librarys
 
 cpp/SOLID/SingleResponsibility/Invoice/main
 cpp/SOLID/Open-Close/Invoice/main
-
 cpp/object/SOLID/SingleResponsibility/Invoice/main
 cpp/object/SOLID/Open-Close/Invoice/main
 
 cpp/DesignPatterns/Factory/Shapes/main
-
+cpp/object/DesignPatterns/Factory/Shapes/main
 
 cpp/const/Consts
 cpp/const/Const_cast

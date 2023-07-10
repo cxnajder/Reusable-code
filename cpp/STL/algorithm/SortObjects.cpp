@@ -8,22 +8,28 @@ class Vector2D {
     double y;
 public:
     Vector2D(double x_, double y_): x(x_), y(y_) {}
-    bool operator < (const Vector2D & R_vec)
+
+    bool operator < ( const Vector2D & R_vec ) const
     {
         return (( this->x + this-> y ) < ( R_vec.x + R_vec.y ));
     }
 
-    friend std::ostream & operator<<(std::ostream & ostr, const Vector2D & v);
+    bool operator > ( const Vector2D & R_vec ) const
+    {
+        return (( this->x + this-> y ) > ( R_vec.x + R_vec.y ));
+    }
+
+    friend std::ostream & operator << ( std::ostream & ostr, const Vector2D & v );
     friend struct Vector2DMultComp;
 };
 
-std::ostream & operator<<(std::ostream & ostr, const Vector2D & v) { // OSTREAM CAN ONLY BE PASTED BY REFERENCE!
+std::ostream & operator << ( std::ostream & ostr, const Vector2D & v ) { // OSTREAM CAN ONLY BE PASTED BY REFERENCE!
     ostr << '(' << v.x << ", " << v.y << ')';
     return ostr;
 }
 
 template <typename T>
-std::ostream & operator << (std::ostream & strm, const std::vector<T> & vec)
+std::ostream & operator << ( std::ostream & strm, const std::vector<T> & vec )
 {
     for (auto vec_element: vec)
         strm << vec_element << ", ";
@@ -48,6 +54,11 @@ int main( void )
     std::sort( v_v2d.begin(), v_v2d.end() );
 
     std::cout << "2D vectors after sorting by sum:\n";
+    std::cout << v_v2d << '\n';
+
+    std::sort( v_v2d.begin(), v_v2d.end(), std::greater<Vector2D>() );
+
+    std::cout << "2D vectors after reverse sorting by sum:\n";
     std::cout << v_v2d << '\n';
 
     std::sort( v_v2d.begin(), v_v2d.end(), Vector2DMultComp() );
