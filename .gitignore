@@ -36,3 +36,6 @@ cpp/object/inheritance/Dogs
 
 cpp/object/functor/BasicFunctor
 cpp/object/functor/EnemyComperator
+
+cpp/STL/algorithm/Find
+cpp/STL/algorithm/Sort
