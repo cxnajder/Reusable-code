@@ -39,3 +39,4 @@ cpp/object/functor/EnemyComperator
 
 cpp/STL/algorithm/Find
 cpp/STL/algorithm/Sort
+cpp/STL/algorithm/SortObjects
