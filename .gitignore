@@ -41,7 +41,8 @@ cpp/object/functor/BasicFunctor
 cpp/object/functor/EnemyComperator
 cpp/object/functor/lambda/UnnamedFunctor-Lambda
 
-cpp/STL/algorithm/Find
+cpp/STL/algorithm/searching/Find
+
 cpp/STL/algorithm/sorting/Sort
 cpp/STL/algorithm/sorting/SortObjects
 cpp/STL/algorithm/sorting/Partial_sort
