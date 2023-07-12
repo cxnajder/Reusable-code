@@ -47,3 +47,4 @@ cpp/STL/algorithm/searching/Nth_element
 cpp/STL/algorithm/sorting/Sort
 cpp/STL/algorithm/sorting/SortObjects
 cpp/STL/algorithm/sorting/Partial_sort
+cpp/STL/algorithm/sorting/Sorted_until
