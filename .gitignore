@@ -49,4 +49,5 @@ cpp/STL/algorithm/sorting/SortObjects
 cpp/STL/algorithm/sorting/Partial_sort
 cpp/STL/algorithm/sorting/Sorted_until
 
-cpp/STL/algorithm/Copy
+cpp/STL/algorithm/copying/Copy
+cpp/STL/algorithm/copying/Copy_backwrd
