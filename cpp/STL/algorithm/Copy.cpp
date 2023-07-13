@@ -54,4 +54,11 @@ int main( void )
     std::copy_if( vec.begin(), vec.end(), std::ostream_iterator<int>( std::cout, ", " ), [](int x) { return x < 8; } );
     std::cout << '\n';
     std::cout << vec << '\n';
+
+        {
+        std::vector<int> temp;
+        std::copy_if( vec.begin(), vec.end(), std::back_inserter(temp), [x = 1](int) mutable { ++x; return x % 2 == 0; } );
+
+        std::cout << temp << '\n';
+    }
 }
