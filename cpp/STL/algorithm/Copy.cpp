@@ -44,4 +44,14 @@ int main( void )
     std::copy( vec.begin(), vec.end(), vec.rbegin() ); // vec --> { 10 9 8 7 6 6 7 8 9 10 }
     std::cout << vec << '\n';
 
+    {
+        std::vector<int> temp;
+        std::copy_if( vec.begin(), vec.end(), std::back_inserter(temp), [](int x) { return x % 2 == 0; } );
+
+        std::cout << temp << '\n';
+    }
+
+    std::copy_if( vec.begin(), vec.end(), std::ostream_iterator<int>( std::cout, ", " ), [](int x) { return x < 8; } );
+    std::cout << '\n';
+    std::cout << vec << '\n';
 }
