@@ -27,6 +27,8 @@ cpp/object/SOLID/Open-Close/Invoice/main
 cpp/DesignPatterns/Factory/Shapes/main
 cpp/object/DesignPatterns/Factory/Shapes/main
 
+cpp/DesignPatterns/Singleton/Singleton
+
 cpp/const/Consts
 cpp/const/Const_cast
 
