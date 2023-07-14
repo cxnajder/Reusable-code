@@ -41,6 +41,8 @@ cpp/object/functor/BasicFunctor
 cpp/object/functor/EnemyComperator
 cpp/object/functor/lambda/UnnamedFunctor-Lambda
 
+cpp/STL/containers/Containers
+
 cpp/STL/algorithm/searching/Find
 cpp/STL/algorithm/searching/Nth_element
 cpp/STL/algorithm/searching/Binary_search
