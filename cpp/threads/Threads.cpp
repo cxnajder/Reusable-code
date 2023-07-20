@@ -1,6 +1,7 @@
 #include <iostream>
 #include <thread>
 #include <vector>
+#include <algorithm>
 
 
 void testSome(int x)
@@ -22,7 +23,8 @@ int main()
     for (int i = 0; i < 5; ++i)
     {
         threads.emplace_back(std::thread(lambda, i+1));
-        threads[i].join();
     }
+
+    std::for_each(threads.begin(), threads.end(), [] (std::thread & t) { t.join(); });
 
 }
