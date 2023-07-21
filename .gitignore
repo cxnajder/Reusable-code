@@ -58,3 +58,5 @@ cpp/STL/algorithm/copying/Copy
 cpp/STL/algorithm/copying/Copy_backwrd
 
 cpp/try_catch/Date/Main
+
+*.exe
