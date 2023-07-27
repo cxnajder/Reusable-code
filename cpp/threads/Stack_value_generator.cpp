@@ -5,20 +5,14 @@
 #include <chrono>
 #include <mutex>
 #include <cmath>
+#include <sstream>
+#include <vector>
+#include <algorithm>
 
-int getThreadIdAsInt() {
-    // Get the ID of the current thread
-    std::thread::id threadId = std::this_thread::get_id();
-
-    // Use std::hash to convert the thread ID to a hash value (size_t)
-    std::hash<std::thread::id> hashFn;
-    size_t hashValue = hashFn(threadId);
-
-    // Convert the hash value to int
-    int threadIdAsInt = static_cast<int>(hashValue);
-
-    return threadIdAsInt;
-}
+const int _MS_GEN_STEP = 100;
+const int _MS_PRINT_POP_STEP = 500;
+const int _MS_MAIN_LOOP_SLEEP = 1000;
+const int _NUM_OF_THREADS = 3;
 
 
 
@@ -28,19 +22,22 @@ int main()
     std::stack<int> intStack;
     std::mutex mutlock;
 
+    std::vector<std::thread> thread_group;
+
 
     auto genValToStack = [&intStack, &mutlock]() {
         while (true)
         {
             if (mutlock.try_lock()) {
-                intStack.push( std::abs( getThreadIdAsInt() % 10 ) );
+                std::stringstream ss;
+                ss << std::this_thread::get_id();
+                intStack.push( std::stoi( ss.str() ) );
                 std::cout << '\t' << intStack.top() << "\n";
-                std::this_thread::sleep_for(std::chrono::milliseconds(300));
                 mutlock.unlock();
-                std::this_thread::sleep_for(std::chrono::milliseconds(600));
+                std::this_thread::sleep_for(std::chrono::milliseconds(_MS_GEN_STEP * _NUM_OF_THREADS));
             }
             else {
-                std::this_thread::sleep_for(std::chrono::milliseconds(250));
+                std::this_thread::sleep_for(std::chrono::milliseconds(_MS_GEN_STEP));
             }
 
         }
@@ -49,14 +46,14 @@ int main()
     auto PrintAndPopStack = [&intStack, &mutlock]() {
         while (true)
         {
-            std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+            std::this_thread::sleep_for(std::chrono::milliseconds(_MS_MAIN_LOOP_SLEEP));
             mutlock.lock();
             std::cout << "END OF GENERATING STACK:\n\n";
             std::cout << "PRINTING STACK:\n";
             while (!intStack.empty())
             {
                 std::cout << '\t' << intStack.top() << '\n';
-                std::this_thread::sleep_for(std::chrono::milliseconds(500));
+                std::this_thread::sleep_for(std::chrono::milliseconds(_MS_PRINT_POP_STEP));
                 intStack.pop();
             }
             std::cout << "END OF PRINTING STACK:\n\n";
@@ -69,15 +66,14 @@ int main()
 
     std::cout << "GENERATING STACK:\n";
 
-    std::thread genThread1(genValToStack);
-    std::thread genThread2(genValToStack);
-    std::thread genThread3(genValToStack);
+    for (int i = 0; i < _NUM_OF_THREADS; ++i)
+    {
+        thread_group.emplace_back(std::thread(genValToStack));
+    }
 
-    std::thread printThread(PrintAndPopStack);
+    PrintAndPopStack();
 
-    genThread1.join();
-    genThread2.join();
-    genThread3.join();
-    printThread.join();
+    std::for_each(thread_group.begin(), thread_group.end(), [](std::thread& t) { t.join(); });
+
 
 }
