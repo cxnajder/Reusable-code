@@ -61,14 +61,14 @@ private:
 
 public:
 	// operations
-	explicit operato bool() const noexcept 
+	explicit operator bool() const noexcept 
 	{ 
 		return static_cast<bool>(m_ptr); 
 	}
 
 	T * get() const noexcept { return m_ptr; }
 	
-	T* ooperator->() const noexcept { return m_ptr; }
+	T* operator->() const noexcept { return m_ptr; }
 
 	T& operator*() const noexcept { return *m_ptr; }
 
