@@ -1,54 +1,70 @@
+#include <iostream>
 #include <memory>
+#include <string>
+#include <random>
+#include <ctime>
 
 
-class Coordinate;
-class RouteStrategy;
-
-
-class Map
+class Strategy
 {
-    std::unique_ptr<RouteStrategy> routeFinder;
-
 public:
-    /*
-     * there are 2 popular ways to inject strategy (set the RouteStrategy object)
-     * 1)   Injection by constructor
-     * 2)   Injection by setter
-     */
-    explicit Map(std::unique_ptr<RouteStrategy> &&routeFinder_ = {}) : routeFinder(std::move(routeFinder_)) {}
+    virtual void someAlgorithm() = 0;
+};
 
-    void routeSetter(std::unique_ptr<RouteStrategy> &&routeFinder_)
+class ConcreteStrat_1 
+    : public Strategy
+{
+public:
+    void someAlgorithm() override
     {
-        routeFinder = std::move(routeFinder_);
+        std::cout << "Executing Strategy 1\n";
+    }
+};
+
+class ConcreteStrat_2
+    : public Strategy
+{
+public:
+    void someAlgorithm() override
+    {
+        std::cout << "Executing Strategy 2\n";
     }
 };
 
 
-
-class RouteStrategy
+bool randomBool()
 {
-public:
-    virtual void findRout(Coordinate, Coordinate) = 0;
-};
+    std::srand(std::time(NULL));
+    return std::rand() % 2;
+}
 
 
-
-class CarRouteStrategy : public RouteStrategy
+void strategyLoop()
 {
-public:
-    void findRout(Coordinate point_A, Coordinate point_B) override;
-};
+    Strategy* strat_ptr;
 
+    std::string input;
+    std::cout << "Type 'q' or 'Q' To Quit.\n";
 
-class BikeRouteStrategy : public RouteStrategy
+    while (true)
+    {
+        if (randomBool())
+            strat_ptr = new ConcreteStrat_1;
+        else
+            strat_ptr = new ConcreteStrat_2;
+
+        strat_ptr->someAlgorithm();
+        delete strat_ptr;
+
+        std::getline(std::cin, input);
+
+        if (input == "q" || input == "Q")
+            break;
+    }
+}
+
+int main( void )
 {
-public:
-    void findRout(Coordinate point_A, Coordinate point_B) override;
-};
-
-
-class WalkRouteStrategy : public RouteStrategy
-{
-public:
-    void findRout(Coordinate point_A, Coordinate point_B) override;
-};
+    strategyLoop();
+    return 0;
+}
