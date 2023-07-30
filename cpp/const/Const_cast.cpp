@@ -32,7 +32,7 @@ int main(void)
 
     incrementPointer( const_cast <int *>(ptr) );   // cast away constness
     cout << "Pointer to const value after  : " << *ptr << '\n';
-    cout << "val value : " << *ptr << '\n';
+    cout << "val value : " << val << '\n';
 
     cout << "---------\n";
 
