@@ -1,0 +1,6 @@
+[submodule "cpp/CMake/Project_with_glfw_and_gtest/Source/External/glfw"]
+	path = cpp/CMake/Project_with_glfw_and_gtest/Source/External/glfw
+	url = https://github.com/glfw/glfw.git
+[submodule "cpp/CMake/Project_with_glfw_and_gtest/Source/External/googletest"]
+	path = cpp/CMake/Project_with_glfw_and_gtest/Source/External/googletest
+	url = https://github.com/google/googletest.git
